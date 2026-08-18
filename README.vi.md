@@ -3,7 +3,7 @@
 # 🎧 BAR ONLINE TIKTOK LIVE — VŨ TRƯỜNG 88 🚀
 ### *Phần Mềm Vũ Trường Ảo Livestream Tương Tác Chuẩn TikTok Live 9:16 & OBS Studio*
 
-[![Phiên bản](https://img.shields.io/badge/phiên_bản-2.8.0-blue.svg?style=for-the-badge&logo=semver)](https://github.com/methanol-dev/online-bar)
+[![Phiên bản](https://img.shields.io/badge/phiên_bản-3.0.0-blue.svg?style=for-the-badge&logo=semver)](https://github.com/methanol-dev/online-bar)
 [![Giấy phép](https://img.shields.io/badge/giấy_phép-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Socket.io](https://img.shields.io/badge/Socket.io-4.7.5-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io/)

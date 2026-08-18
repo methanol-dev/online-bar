@@ -3,7 +3,7 @@
 # 🎧 BAR ONLINE TIKTOK LIVE — VŨ TRƯỜNG 88 🚀
 ### *Next-Gen Interactive Cloud Disco & Livestream Engine for TikTok Live & OBS Studio*
 
-[![Version](https://img.shields.io/badge/version-2.8.0-blue.svg?style=for-the-badge&logo=semver)](https://github.com/methanol-dev/online-bar)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg?style=for-the-badge&logo=semver)](https://github.com/methanol-dev/online-bar)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Socket.io](https://img.shields.io/badge/Socket.io-4.7.5-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io/)

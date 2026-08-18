@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 180" width="140" height="180">
+  <!-- Mushroom Hair Top -->
+  <path d="M 22 55 C 10 10, 130 10, 118 55 C 100 66, 40 66, 22 55 Z" fill="#111111" />
+  <path d="M 24 48 C 40 58, 100 58, 116 48 C 110 40, 30 40, 24 48 Z" fill="#222222" />
+
+  <!-- Face Outline -->
+  <ellipse cx="70" cy="66" rx="40" ry="34" fill="#ffffff" stroke="#111111" stroke-width="3.5" />
+
+  <!-- Yao Ming / Bitch Please Sarcastic Eyebrows -->
+  <path d="M 40 48 Q 54 40 64 50" stroke="#111111" stroke-width="3" stroke-linecap="round" fill="none" />
+  <path d="M 76 50 Q 86 40 100 48" stroke="#111111" stroke-width="3" stroke-linecap="round" fill="none" />
+
+  <!-- Wrinkles -->
+  <path d="M 46 44 Q 54 38 62 45" stroke="#111111" stroke-width="1.5" fill="none" />
+  <path d="M 78 45 Q 86 38 94 44" stroke="#111111" stroke-width="1.5" fill="none" />
+
+  <!-- Narrow Squinting Laughing Eyes -->
+  <path d="M 44 58 Q 54 52 64 60 Q 54 64 44 58 Z" fill="#111111" />
+  <path d="M 76 60 Q 86 52 96 58 Q 86 64 76 60 Z" fill="#111111" />
+  <path d="M 42 63 Q 54 67 65 63" stroke="#111111" stroke-width="1.5" fill="none" />
+  <path d="M 75 63 Q 86 67 98 63" stroke="#111111" stroke-width="1.5" fill="none" />
+
+  <!-- Nose -->
+  <path d="M 68 62 L 64 72 L 76 72" stroke="#111111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+  <!-- Exaggerated Laughing Teeth Grin -->
+  <path d="M 42 76 Q 70 100 98 76 Q 70 82 42 76 Z" fill="#ffffff" stroke="#111111" stroke-width="3" />
+  <path d="M 48 79 Q 70 88 92 79" stroke="#111111" stroke-width="1.5" fill="none" />
+  <!-- Vertical teeth dividers -->
+  <line x1="56" y1="78" x2="56" y2="85" stroke="#111111" stroke-width="1.5" />
+  <line x1="63" y1="79" x2="63" y2="88" stroke="#111111" stroke-width="1.5" />
+  <line x1="70" y1="80" x2="70" y2="90" stroke="#111111" stroke-width="1.5" />
+  <line x1="77" y1="79" x2="77" y2="88" stroke="#111111" stroke-width="1.5" />
+  <line x1="84" y1="78" x2="84" y2="85" stroke="#111111" stroke-width="1.5" />
+
+  <!-- Chin Crease -->
+  <path d="M 60 96 Q 70 100 80 96" stroke="#111111" stroke-width="2" fill="none" />
+
+  <!-- Stickman Dancing Body (White T-shirt & Black Pants) -->
+  <path d="M 50 102 L 36 142 L 104 142 L 90 102 Z" fill="#ffffff" stroke="#111111" stroke-width="3.5" />
+
+  <!-- Animated Arms (Waving quẩy) -->
+  <path d="M 46 108 Q 20 115 12 90" stroke="#111111" stroke-width="4.5" stroke-linecap="round" fill="none" />
+  <path d="M 94 108 Q 120 115 128 90" stroke="#111111" stroke-width="4.5" stroke-linecap="round" fill="none" />
+
+  <!-- Legs -->
+  <path d="M 52 142 L 46 174 M 88 142 L 94 174" stroke="#111111" stroke-width="5" stroke-linecap="round" />
+</svg>

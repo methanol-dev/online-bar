@@ -1,0 +1,372 @@
+/* ============================================================
+   TIKTOK LIVE BAR ONLINE - VIRAL EXACT SPLIT-VIEW STYLESHEET
+   ============================================================ */
+
+:root {
+    --bg-dark: #06020c;
+    --neon-pink: #ff007f;
+    --neon-cyan: #00f0ff;
+    --neon-yellow: #ffe600;
+    --neon-green: #00ff66;
+    --neon-purple: #7928ca;
+    --gold: #ffd700;
+    --glass-bg: rgba(15, 8, 30, 0.78);
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+    font-family: var(--font-family);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app-viewport {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Stream Screen Container (9:16 OBS Capture Ratio - 1080x1920) */
+#stream-container {
+    position: relative;
+    width: 1080px;
+    height: 1920px;
+    transform-origin: center center;
+    background-color: var(--bg-dark);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* ==========================================
+   1. TOP CAMERA / DJ HOST SECTION (35% HEIGHT)
+   ========================================== */
+#camera-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1080px;
+    height: 640px;
+    overflow: hidden;
+    z-index: 5;
+    background: #000000;
+}
+
+/* DJ Video / Webcam Stream */
+#dj-video-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Animated DJ Stage Demo Canvas if camera is off */
+#dj-camera-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1080px;
+    height: 640px;
+    z-index: 2;
+}
+
+/* Red Notice Banner on Camera (Formula A: Liquid Ruby Glass) */
+.camera-notice-pill {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(200, 10, 30, 0.85), rgba(130, 0, 15, 0.9));
+    border: 1.5px solid rgba(255, 100, 120, 0.6);
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 25px;
+    padding: 8px 36px;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px 0 rgba(255, 0, 50, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    z-index: 20;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Camera Toggle Buttons (Hidden in production stream / overlay on hover) */
+.camera-controls-overlay {
+    position: absolute;
+    top: 110px;
+    right: 32px;
+    display: flex;
+    gap: 8px;
+    z-index: 25;
+}
+
+.cam-btn {
+    background: rgba(10, 5, 20, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cam-btn:hover {
+    background: rgba(0, 240, 255, 0.25);
+    border-color: #00f0ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 240, 255, 0.4);
+}
+
+/* ==========================================
+   2. BOTTOM VIRTUAL STAGE SECTION (65% HEIGHT)
+   ========================================== */
+#stage-section {
+    position: absolute;
+    top: 640px;
+    left: 0;
+    width: 1080px;
+    height: 1280px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+#stage-canvas {
+    position: absolute;
+    top: -640px; /* Offset to align with full 1080x1920 coordinate system */
+    left: 0;
+    width: 1080px;
+    height: 1920px;
+    z-index: 1;
+}
+
+/* Floating Command List Panel on Right Side (Formula A: Liquid Glass Row Pills) */
+.viral-command-list {
+    position: absolute;
+    top: 250px;
+    right: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.viral-cmd-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(10, 4, 24, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 4px 14px 4px 8px;
+    border-radius: 16px;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.viral-cmd-icon {
+    font-size: 26px;
+    width: 30px;
+    text-align: center;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.viral-cmd-text {
+    font-size: 16px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.8px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Live Dancer Count Badge (Formula A: Liquid Cyan Glass) */
+.crowd-counter-pill {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(121, 40, 202, 0.15));
+    border: 1.5px solid rgba(0, 240, 255, 0.5);
+    color: #00f0ff;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 8px 22px;
+    border-radius: 22px;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    z-index: 20;
+    box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Now Playing Music Ticker Badge (Formula A: Liquid Amber Glass) */
+.now-playing-pill {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    background: linear-gradient(135deg, rgba(255, 230, 0, 0.15), rgba(255, 0, 127, 0.15));
+    border: 1.5px solid rgba(255, 230, 0, 0.5);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 8px 22px;
+    border-radius: 22px;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    z-index: 20;
+    box-shadow: 0 8px 32px 0 rgba(255, 230, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.now-playing-pill strong {
+    color: var(--neon-yellow);
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Live Chat Feed (Formula A: Liquid Dark Glass) */
+.chat-feed-box {
+    position: absolute;
+    bottom: 24px;
+    left: 32px;
+    width: 440px;
+    max-height: 280px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+    overflow: hidden;
+    z-index: 30;
+}
+
+.chat-msg-line {
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+}
+
+.chat-badge {
+    background: linear-gradient(90deg, #ff007f, #7928ca);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 5px;
+    margin-right: 6px;
+}
+
+.chat-author {
+    font-weight: 800;
+    color: var(--neon-cyan);
+    margin-right: 6px;
+}
+
+.chat-text {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.chat-system {
+    color: #00ff66;
+    font-weight: 700;
+}
+
+/* VIP Announcement Banner */
+#banner-container {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 50;
+}
+
+.vip-banner {
+    background: linear-gradient(135deg, rgba(255, 0, 127, 0.96), rgba(121, 40, 202, 0.96));
+    border: 3px solid var(--neon-yellow);
+    border-radius: 24px;
+    padding: 16px 28px;
+    box-shadow: 0 0 45px var(--neon-pink), 0 0 25px var(--neon-yellow);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: bannerPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.vip-banner-icon {
+    font-size: 38px;
+}
+
+.vip-banner-text {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.vip-banner-sub {
+    font-size: 16px;
+    color: var(--neon-yellow);
+    font-weight: 800;
+}
+
+/* Music Beat Synthesizer Toggle */
+.music-toggle-btn {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    border: 2px solid var(--neon-yellow);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 35;
+    transition: transform 0.15s;
+}
+
+.music-toggle-btn:hover {
+    transform: scale(1.05);
+}
+
+@keyframes bannerPop {
+    0% { transform: scale(0.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

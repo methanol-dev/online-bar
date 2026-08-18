@@ -1,0 +1,27 @@
+.bare/
+main/
+feature-*/
+node_modules/
+.env
+.env.local
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# AI Agent & Documentation folders (Do not push to Git)
+.agent/
+docs/
+.docs/
+
+# System and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary uploaded files (keep directory structure)
+public/uploads/music/*
+!public/uploads/music/.gitkeep

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamer Control Center 2.0 - Bar Online Vũ Trường 88</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-header">
+        <div class="dashboard-title">
+            <span>🎧</span> STREAMER CONTROL CENTER 2.0 - BAR ONLINE VŨ TRƯỜNG 88
+        </div>
+        <div class="header-actions">
+            <span class="hotkey-badge">⌨️ Phím tắt: [1-8] Âm thanh | [Space] Pháo hoa | [M] Nhạc</span>
+            <a href="/" target="_blank" class="open-stream-btn">
+                <span>📺</span> MỞ STREAM OBS (1080x1920)
+            </a>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- 1. Live Stream Mini Monitor -->
+        <div class="card mini-monitor-card">
+            <div class="card-title">
+                <span>📺</span> LIVE STREAM MONITOR (XEM TRỰC TIẾP)
+            </div>
+            <div class="monitor-container">
+                <iframe src="/" id="stream-preview-frame" title="Live Preview"></iframe>
+            </div>
+            <div class="monitor-footer">
+                <span class="live-tag">● LIVE PREVIEW (9:16)</span>
+                <button class="btn btn-outline-sm" onclick="reloadPreview()">🔄 TẢI LẠI MÀN HÌNH</button>
+            </div>
+        </div>
+
+        <!-- 2. TikTok Live Connection & Quick Stats -->
+        <div class="card">
+            <div class="card-title">
+                <span>📡</span> KẾT NỐI TIKTOK LIVE REAL-TIME
+            </div>
+            <div class="input-group">
+                <input type="text" id="tiktok-username-input" placeholder="Nhập Username TikTok (Ví dụ: user_cuaban)" />
+                <button class="btn btn-primary" id="btn-connect">KẾT NỐI</button>
+                <button class="btn btn-danger" id="btn-disconnect" style="display: none;">NGẮT KẾT NỐI</button>
+            </div>
+            <div class="status-box">
+                <div class="status-indicator" id="status-dot"></div>
+                <span id="status-label">Trạng thái: Chưa kết nối</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="card-title" style="margin-top: 10px;">
+                <span>🤖</span> ĐIỀU CHỈNH ĐÁM ĐÔNG & DÂN CHƠI
+            </div>
+            <div class="density-slider-container">
+                <div class="density-header">
+                    <span>Số lượng dân chơi:</span>
+                    <strong id="density-value-label" style="color: #00f0ff;">450 DÂN CHƠI</strong>
+                </div>
+                <input type="range" id="crowd-density-slider" min="50" max="2500" step="50" value="450" oninput="onSliderChange(this.value)" />
+            </div>
+            <div class="crowd-actions-v2">
+                <button class="btn-crowd-v2" onclick="triggerBulkSpawn(100)">+100</button>
+                <button class="btn-crowd-v2" onclick="triggerBulkSpawn(500)">+500</button>
+                <button class="btn-crowd-v2 btn-crowd-1000" onclick="triggerBulkSpawn(1000)">+1,000 🔥</button>
+                <button class="btn-crowd-v2 btn-crowd-2000" onclick="triggerBulkSpawn(2000)">+2,000 ⚡</button>
+                <button class="btn-crowd-v2 btn-crowd-clear" onclick="triggerClearCrowd()" style="grid-column: span 4;">🗑️ DỌN DẸP SÀN (CLEAR)</button>
+            </div>
+        </div>
+
+        <!-- 3. MULTI-SOURCE DJ MUSIC HUB (YOUTUBE & MP3 UPLOAD) -->
+        <div class="card music-hub-card">
+            <div class="card-title">
+                <span>🎵</span> TRUNG TÂM PHÁT NHẠC (YOUTUBE & MP3 TỰ CHỌN)
+            </div>
+
+            <!-- Music Tabs -->
+            <div class="music-tabs">
+                <button class="music-tab active" onclick="switchMusicTab('yt')">🎥 LINK YOUTUBE</button>
+                <button class="music-tab" onclick="switchMusicTab('upload')">📁 TẢI FILE MP3</button>
+                <button class="music-tab" onclick="switchMusicTab('synth')">🎛️ BEAT VINAHOUSE</button>
+            </div>
+
+            <!-- Tab Content 1: YouTube Link -->
+            <div id="tab-content-yt" class="music-tab-pane active">
+                <div class="input-group">
+                    <input type="text" id="yt-url-input" placeholder="Dán link YouTube (Ví dụ: https://www.youtube.com/watch?v=...)" />
+                    <button class="btn btn-primary" onclick="playYouTubeTrack()">▶️ PHÁT YOUTUBE</button>
+                </div>
+                <div class="quick-yt-suggestions">
+                    <span style="font-size: 12px; color: #888;">Gợi ý nhạc Bar:</span>
+                    <button class="btn-chip" onclick="setYTUrl('https://www.youtube.com/watch?v=kY67Z3qTqI4', 'Vinahouse Cực Khét 2026')">🔥 Vinahouse Khét</button>
+                    <button class="btn-chip" onclick="setYTUrl('https://www.youtube.com/watch?v=21X5lGlDOfg', 'EDM Festival Mix')">⚡ EDM Festival</button>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Upload MP3 File -->
+            <div id="tab-content-upload" class="music-tab-pane" style="display: none;">
+                <div class="upload-dropzone" onclick="document.getElementById('mp3-file-input').click()">
+                    <input type="file" id="mp3-file-input" accept="audio/*" style="display: none;" onchange="handleFileUpload(event)" />
+                    <span>📤 Bấm để Tải Lên File Nhạc MP3 / WAV của bạn</span>
+                </div>
+                <div class="track-list" id="uploaded-track-list">
+                    <div style="font-size: 12px; color: #888; text-align: center; padding: 10px;">Chưa có bài hát nào được tải lên</div>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: Synth Beat -->
+            <div id="tab-content-synth" class="music-tab-pane" style="display: none;">
+                <button class="sound-btn music-btn" id="btn-toggle-music" onclick="toggleVinahouseMusic()" style="width: 100%;">
+                    <span class="sound-icon">🎵</span>
+                    <span id="dash-music-label">[M] BẬT BEAT VINAHOUSE NONSTOP</span>
+                </button>
+            </div>
+
+            <!-- Master Volume & Global Stop -->
+            <div class="music-controls-footer">
+                <div class="volume-slider-group">
+                    <span id="vol-label">🔊 80%</span>
+                    <input type="range" min="0" max="100" value="80" oninput="onMusicVolumeChange(this.value)" />
+                </div>
+                <button class="btn btn-danger btn-sm" onclick="stopAllMusic()">⏹️ TẮT NHẠC</button>
+            </div>
+        </div>
+
+        <!-- 4. DJ Soundboard Panel -->
+        <div class="card">
+            <div class="card-title">
+                <span>🔊</span> SOUNDBOARD HIỆU ỨNG DJ (PHÍM TẮT 1-8)
+            </div>
+            <div class="soundboard-grid">
+                <button class="sound-btn" onclick="triggerSound('AIRHORN')">
+                    <span class="sound-icon">📯</span>
+                    <span>[1] CÒI BAR</span>
+                </button>
+                <button class="sound-btn" onclick="triggerSound('CHEER')">
+                    <span class="sound-icon">👏</span>
+                    <span>[2] HÒ REO</span>
+                </button>
+                <button class="sound-btn" onclick="triggerSound('SCRATCH')">
+                    <span class="sound-icon">💿</span>
+                    <span>[3] CÀO ĐĨA</span>
+                </button>
+                <button class="sound-btn" onclick="triggerSound('COUNTDOWN')">
+                    <span class="sound-icon">⏱️</span>
+                    <span>[4] ĐẾM NGƯỢC</span>
+                </button>
+                <button class="sound-btn" onclick="triggerSound('BASS_DROP')">
+                    <span class="sound-icon">🔊</span>
+                    <span>[5] BASS DROP</span>
+                </button>
+                <button class="sound-btn" onclick="triggerSound('EXPLOSION')">
+                    <span class="sound-icon">💥</span>
+                    <span>[6] PHÁO HOA</span>
+                </button>
+                <button class="sound-btn" onclick="triggerSound('CHAMPAGNE')">
+                    <span class="sound-icon">🍾</span>
+                    <span>[7] SÂM PANH</span>
+                </button>
+                <button class="sound-btn" onclick="triggerSound('SIREN')">
+                    <span class="sound-icon">🚨</span>
+                    <span>[8] CÒI CỨU HỘ</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 5. Interactive Simulation & VIP Gifts -->
+        <div class="card">
+            <div class="card-title">
+                <span>⚡</span> GIẢ LẬP LỆNH CHAT & QUÀ TẶNG VIP
+            </div>
+            <div class="sim-controls">
+                <button class="btn btn-toggle-sim" id="btn-toggle-sim">
+                    <span>▶️</span> BẬT GIẢ LẬP TỰ ĐỘNG CHÁY BAR
+                </button>
+                
+                <div style="font-size: 13px; color: #00f0ff; font-weight: 700; margin-top: 6px;">Lệnh nhảy & tương tác:</div>
+                <div class="sim-actions">
+                    <button class="btn-sim-item" onclick="triggerSimChat('NHẢY')">💃 NHẢY</button>
+                    <button class="btn-sim-item" onclick="triggerSimChat('ĐỔI NV')">🔄 ĐỔI NV</button>
+                    <button class="btn-sim-item" onclick="triggerSimChat('ĐI VÒNG')">🏃 ĐI VÒNG</button>
+                    <button class="btn-sim-item" onclick="triggerSimChat('VIP')">👑 LÊN CÁNH</button>
+                    <button class="btn-sim-item" onclick="triggerSimChat('TO')">🔍 PHÓNG TO</button>
+                    <button class="btn-sim-item" onclick="triggerSimChat('CAMERA')">🎥 CAMERA</button>
+                </div>
+
+                <div style="font-size: 13px; color: #ffd700; font-weight: 700; margin-top: 8px;">Quà tặng & Siêu hiệu ứng:</div>
+                <div class="sim-actions">
+                    <button class="btn-sim-item gift-item" onclick="triggerSimGift('Hoa Hồng 🌹', 10, 10)">🌹 10x Hoa Hồng</button>
+                    <button class="btn-sim-item gift-item" onclick="triggerSimGift('Vương Miện 👑', 1, 1999)">👑 1x Vương Miện</button>
+                    <button class="btn-sim-item gift-item" onclick="triggerSimGift('Siêu Xe Vàng 🏎️', 1, 5000)">🏎️ 1x Siêu Xe Vàng</button>
+                    <button class="btn-sim-item gift-item" onclick="triggerSimGift('Trực Thăng 🚁', 1, 10000)">🚁 1x Trực Thăng</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Real-time Live Event Log -->
+        <div class="card" style="grid-column: 1 / -1;">
+            <div class="card-title">
+                <span>📋</span> NHẬT KÝ SỰ KIỆN LIVE (EVENT LOGS)
+            </div>
+            <div class="log-list" id="event-log-list">
+                <div class="log-entry info">[System] Control Center 2.0 đã khởi tạo sẵn sàng điều khiển.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden YouTube Player Container for Music Manager -->
+    <div id="yt-player-hidden-container" style="position:fixed;bottom:-999px;left:-999px;width:1px;height:1px;opacity:0;"></div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/soundboard.js"></script>
+    <script src="/js/musicManager.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

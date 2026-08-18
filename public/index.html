@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bar Online - TikTok Live Vũ Trường 88</title>
+    <link rel="stylesheet" href="/css/cyberpunk-stage.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="app-viewport">
+        <!-- 9:16 Vertical Stream Container (1080x1920 OBS Capture) -->
+        <div id="stream-container">
+
+            <!-- ==========================================
+                 TOP 35%: STREAMER / DJ CAMERA SECTION
+                 ========================================== -->
+            <div id="camera-section">
+                <!-- Camera Toggle Button for Streamer -->
+                <div class="camera-controls-overlay">
+                    <button class="cam-btn" id="btn-toggle-cam" onclick="toggleWebcamStream()">📷 BẬT / TẮT WEBCAM</button>
+                </div>
+
+                <!-- Video Element for Streamer's Live Webcam -->
+                <video id="dj-video-feed" autoplay playsinline muted style="display: none;"></video>
+
+                <!-- Fallback Animated DJ Scene with Monkey Shoulder Bar Desk -->
+                <canvas id="dj-camera-canvas"></canvas>
+
+                <!-- Red Notice Pill on Camera (Exact Replica) -->
+                <div class="camera-notice-pill">
+                    chat: 1 vào BAR. 1k tym có cánh
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 BOTTOM 65%: 3D VIRTUAL DANCE FLOOR & DANCERS
+                 ========================================== -->
+            <div id="stage-section">
+                <!-- 3D Virtual Stage Canvas -->
+                <canvas id="stage-canvas"></canvas>
+
+                <!-- Live Dancer Crowd Counter Badge -->
+                <div class="crowd-counter-pill" id="dancer-count-badge">
+                    👥 0 DÂN CHƠI
+                </div>
+
+                <!-- VIP Gift Announcement Banner -->
+                <div id="banner-container"></div>
+
+                <!-- Exact Floating TikTok Command List Panel on Right Side -->
+                <div class="viral-command-list">
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">🌹</span>
+                        <span class="viral-cmd-text">CAMERA</span>
+                    </div>
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">🤍</span>
+                        <span class="viral-cmd-text">ĐỔI NV</span>
+                    </div>
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">🏃</span>
+                        <span class="viral-cmd-text">ĐI VÒNG</span>
+                    </div>
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">🤪</span>
+                        <span class="viral-cmd-text">NHẢY 1 CÁI</span>
+                    </div>
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">🎆</span>
+                        <span class="viral-cmd-text">PHÁO HOA</span>
+                    </div>
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">🧧</span>
+                        <span class="viral-cmd-text">HUY HIỆU + CÁNH</span>
+                    </div>
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">💖</span>
+                        <span class="viral-cmd-text">TO LÊN</span>
+                    </div>
+                    <div class="viral-cmd-row">
+                        <span class="viral-cmd-icon">🔍</span>
+                        <span class="viral-cmd-text">NHỎ LẠI</span>
+                    </div>
+                </div>
+
+                <!-- Now Playing Music Ticker Badge -->
+                <div class="now-playing-pill" id="now-playing-badge" style="display: none;">
+                    <span>🎵</span> ĐANG PHÁT: <strong>Vinahouse Nonstop 135 BPM</strong>
+                </div>
+
+                <!-- Live Chat Feed Box -->
+                <div class="chat-feed-box" id="chat-feed-box">
+                    <div class="chat-msg-line chat-system">
+                        🔥 <b>HỆ THỐNG:</b> Chào mừng bạn đến với Bar Online TikTok Live Vũ Trường 88!
+                    </div>
+                </div>
+
+                <!-- Music Beat Toggle Button -->
+                <button class="music-toggle-btn" id="music-toggle-btn" onclick="toggleVinahouseBeat()">
+                    <span id="music-btn-icon">🎵</span>
+                    <span id="music-btn-text">BẬT BEAT VINAHOUSE</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/soundboard.js"></script>
+    <script src="/js/musicManager.js"></script>
+    <script src="/js/cameraManager.js"></script>
+    <script src="/js/avatarManager.js"></script>
+    <script src="/js/effectsManager.js"></script>
+    <script src="/js/stageEngine.js"></script>
+
+    <script>
+        // Automatic Viewport Scaling for Desktop / Browser preview
+        function fitToScreen() {
+            const container = document.getElementById('stream-container');
+            const targetW = 1080;
+            const targetH = 1920;
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+
+            const scale = Math.min(winW / targetW, winH / targetH) * 0.98;
+            container.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', fitToScreen);
+        window.addEventListener('DOMContentLoaded', () => {
+            fitToScreen();
+
+            // Initialize Camera Manager
+            window.cameraManager = new CameraManager('dj-video-feed', 'dj-camera-canvas');
+
+            // Initialize Stage Engine
+            window.stageEngine = new StageEngine('stage-canvas');
+
+            // Soundboard
+            window.soundboard = new Soundboard();
+
+            // Unlock Web Audio on first click
+            document.body.addEventListener('click', () => {
+                if (window.soundboard) window.soundboard.init();
+            }, { once: true });
+        });
+
+        function toggleWebcamStream() {
+            if (window.cameraManager) {
+                window.cameraManager.toggleWebcam();
+            }
+        }
+
+        function toggleVinahouseBeat() {
+            if (!window.soundboard) return;
+            window.soundboard.toggleBackgroundBeat((isPlaying) => {
+                const btn = document.getElementById('music-toggle-btn');
+                const txt = document.getElementById('music-btn-text');
+                if (isPlaying) {
+                    txt.textContent = 'TẮT BEAT NHẠC';
+                    btn.style.background = '#ff0055';
+                } else {
+                    txt.textContent = 'BẬT BEAT VINAHOUSE';
+                    btn.style.background = 'linear-gradient(90deg, #ff007f, #7928ca)';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
